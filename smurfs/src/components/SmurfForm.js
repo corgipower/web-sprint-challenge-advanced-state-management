@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { postSmurfs } from '../actions/smurfActions';
+import { connect } from 'react-redux';
 
-const SmurfForm = () => {
+const SmurfForm = (props) => {
 
     const [smurf, setSmurf] = useState({
         name: '',
         age: '',
         height: '',
+        id: '',
     })
 
     const handleChange = (e) => {
@@ -15,14 +18,16 @@ const SmurfForm = () => {
         })
     }
 
-    const handleSubmit= (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(smurf);
 
+        props.postSmurfs(smurf);
+        
         setSmurf({
             name: '',
             age: '',
             height: '',
+            id: 15,
         })
     }
 
@@ -40,7 +45,6 @@ const SmurfForm = () => {
                 <label htmlFor='height'>
                     Height: 
                     <input type='number' name='height' value={smurf.height} onChange={handleChange} />
-                    cm
                 </label>
                 <button type='submit'>Submit</button>
             </form>
@@ -48,4 +52,6 @@ const SmurfForm = () => {
     )
 }
 
-export default SmurfForm;
+const mapDispatchToProps = {postSmurfs}
+
+export default connect(null, mapDispatchToProps)(SmurfForm);

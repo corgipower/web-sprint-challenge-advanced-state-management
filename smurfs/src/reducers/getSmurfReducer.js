@@ -1,8 +1,8 @@
 export const initialState = [{
-    name: "Brainy",
-    age: 200,
-    height: "5cm",
-    id: 0,
+    name: "",
+    age: "",
+    height: "",
+    id: "",
 }]
 
 export const START_GETTING_SMURF = "START_GETTING_SMURF";
@@ -16,6 +16,7 @@ export const getSmurfReducer = (state = initialState, action) => {
                 ...state,
             };
         case SUCCESS_GETTING_SMURF: 
+        console.log(action.payload)
             return action.payload.map(e => {
                 return {
                     name: e.name,

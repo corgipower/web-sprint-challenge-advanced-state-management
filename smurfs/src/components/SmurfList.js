@@ -2,25 +2,30 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getSmurfs } from '../actions/smurfActions';
 
-const SmurfList = (props) => {
-
-    console.log('NAME', props.state)
+const SmurfList = ({getSmurfs, state}) => {
+    console.log('state', state)
 
     useEffect(() => {
-        props.getSmurfs();
-    }, [props])
+        getSmurfs()
+    }, [getSmurfs])
 
     return (
-        <div>smurf list
-            {props.name}
+        <div>
+            {state.map(e => (
+                <p key={e.id}>{e.name} {e.age} {e.height}</p>
+            ))}
         </div>
     )
 }
 
 const mapStateToProps = state => {
-    console.log(state.getSmurfReducer)
     return {
-        name: state.getSmurfReducer.name,
+        state: state.getSmurfReducer.map(e => {return {
+            name: e.name,
+            age: e.age,
+            height: e.height,
+            id: e.id,
+        }})
     }
 
 }
